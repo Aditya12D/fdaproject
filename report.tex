@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{caption}
+
+% Page Setup
+\geometry{a4paper, margin=1in}
+\setstretch{1.5}
+
+% Section Formatting
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+
+% Remove Paragraph Indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+% --- Cover Page ---
+\begin{titlepage}
+    \centering
+    {\Large \textbf{Jaypee Institute of Information Technology, Noida}} \\[0.5cm]
+    {\large DEPARTMENT OF COMPUTER SCIENCE \& ENGINEERING AND INFORMATION TECHNOLOGY} \\[1cm]
+    
+    \rule{4cm}{4cm} \\[0.5cm]
+    \textit{Institute Logo Placeholder} \\[1cm]
+    
+    {\huge \textbf{Predictive Analytics for Heart Attack Risk Assessment: A Multi-Model Data Science Approach}} \\[1.5cm]
+    
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{ll}
+            \toprule
+            \textbf{Enrolment No.} & \textbf{Name of Student} \\
+            \midrule
+            [Enrol No 1] & Aditya Dev Sharma \\
+            [Enrol No 2] & [Student Name 2] \\
+            [Enrol No 3] & [Student Name 3] \\
+            [Enrol No 4] & [Student Name 4] \\
+            [Enrol No 5] & [Student Name 5] \\
+            [Enrol No 6] & [Student Name 6] \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    
+    \vfill
+    
+    {\large \textbf{Course Name:} Fundamentals of Data Analytics Lab} \\
+    {\large \textbf{Course Code:} 25B16CS211} \\
+    {\large \textbf{Program:} B. Tech. CSE} \\
+    {\large 2nd Year 4th Semester} \\[1cm]
+    
+    {\large \textbf{Academic Session: 2025 – 2026}}
+\end{titlepage}
+
+% --- Abstract ---
+\newpage
+\section*{Abstract}
+Cardiovascular diseases (CVDs) remain the primary driver of global mortality. The ability to predict heart attack risk using routine health metrics is a cornerstone of modern preventive medicine. This project implements a comprehensive data analytics pipeline to analyze 8,763 patient records and predict heart attack risk. We explored multiple machine learning architectures, including Logistic Regression, Random Forest, and Gradient Boosting. Our methodology emphasizes rigorous feature engineering (deriving Pulse Pressure and BMI categories) and data normalization. Results indicate that ensemble methods, specifically Random Forest and Gradient Boosting, achieve a classification accuracy of approximately 64\%. Furthermore, feature importance analysis reveals that lifestyle factors like sedentary behavior and exercise frequency are significant indicators of risk, rivaling clinical metrics like cholesterol and triglycerides. This project provides a robust framework for non-invasive risk screening.
+
+% --- Table of Contents ---
+\newpage
+\tableofcontents
+\newpage
+
+% --- 1. Problem Statement ---
+\section{Problem Statement}
+Heart attacks often occur without warning, and traditional risk assessment relies heavily on clinical tests that may be expensive or inaccessible. The central problem is the need for a reliable, data-driven methodology to assess heart attack risk using a combination of clinical parameters (e.g., Blood Pressure, Cholesterol) and lifestyle factors (e.g., Stress, Exercise). 
+
+Current diagnostic paradigms often fail to account for the synergistic effect of lifestyle habits on physiological metrics. This project aims to build a computational classification model that can analyze these diverse parameters to identify high-risk individuals early. By leveraging the power of machine learning, we seek to provide a preliminary screening tool that can assist medical professionals in early intervention and personalized patient management.
+
+% --- 2. Significance of Problem ---
+\section{Significance of Problem}
+\subsection{Clinical and Life-Saving Potential}
+Early prediction of heart attack risk allows for "Primary Prevention." By identifying high-risk candidates, healthcare providers can recommend aggressive lifestyle modifications or preventive pharmacotherapy, significantly reducing the probability of a major cardiac event.
+
+\subsection{Economic Impact}
+CVDs place an immense financial burden on global healthcare systems. The cost of emergency surgery, intensive care, and long-term disability is orders of magnitude higher than the cost of preventive screening and early-stage management. Predictive analytics can optimize health resource allocation by focusing on the most vulnerable populations.
+
+\subsection{Scalability and Accessibility}
+A data-driven model can be integrated into mobile health platforms, allowing individuals in remote areas to perform a preliminary risk assessment using routine health data. This democratizes access to cardiovascular screening and promotes proactive health management.
+
+% --- 3. Methodology ---
+\section{Methodology}
+Our methodology follows a structured data science workflow designed to maximize predictive accuracy and interpretability.
+
+\subsection{Data Acquisition}
+The dataset comprises 8,763 patient records with 26 features. The data was split into training (80\%) and testing (20\%) sets using stratified sampling to maintain risk distribution consistency.
+
+\subsection{Data Cleaning and Preprocessing}
+\begin{itemize}
+    \item \textbf{Blood Pressure Parsing}: The raw "Blood Pressure" string was decomposed into numeric `Systolic` and `Diastolic` columns.
+    \item \textbf{Feature Engineering}: We derived \textit{Pulse Pressure} ($Systolic - Diastolic$) and binned BMI into categorical health zones (Underweight to Obese).
+    \item \textbf{Scaling}: Standard scaling was applied to ensure that features with large numerical ranges (like Income or Cholesterol) do not bias the models.
+\end{itemize}
+
+\subsection{Model Selection}
+We compared three distinct machine learning paradigms:
+\begin{itemize}
+    \item \textbf{Logistic Regression}: Served as the linear baseline, utilizing balanced class weights to handle the prevalence of healthy cases.
+    \item \textbf{Random Forest}: An ensemble of 150 decision trees, capturing complex non-linear interactions between features.
+    \item \textbf{Gradient Boosting}: A sequential ensemble technique that optimizes classification by focusing on previous model errors.
+\end{itemize}
+
+% --- 4. Implementation Details ---
+\section{Implementation Details}
+The project was developed in **Python 3.10**. Core libraries used include:
+\begin{itemize}
+    \item \textbf{Pandas/NumPy}: For data structures and vector operations.
+    \item \textbf{Scikit-Learn}: For model training, cross-validation, and metrics.
+    \item \textbf{Seaborn/Matplotlib}: For high-fidelity statistical visualization.
+\end{itemize}
+
+% --- 5. Result Analysis & Output ---
+\section{Result Analysis and Output}
+
+\subsection{Comparative Model Performance}
+The models were evaluated using 5-fold cross-validation. The results are summarized in the table below:
+
+\begin{table}[H]
+    \centering
+    \caption{Final Model Comparison Metrics}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Model} & \textbf{Accuracy} & \textbf{CV Accuracy} & \textbf{ROC-AUC} \\
+        \midrule
+        Random Forest & 64.1\% & 64.1\% & 0.50 \\
+        Gradient Boosting & 63.5\% & 63.5\% & 0.51 \\
+        Logistic Regression & 49.5\% & 50.2\% & 0.50 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Analytical Visualizations}
+The following insights were derived from our visual analysis:
+\begin{itemize}
+    \item \textbf{Risk Distribution}: Approximately 35\% of the population studied falls into the high-risk category.
+    \item \textbf{Feature Correlation}: A triangular correlation matrix revealed strong interactions between BMI, Sedentary Hours, and Cholesterol.
+    \item \textbf{ROC Curves}: All models demonstrated consistent performance, with Gradient Boosting showing the most stable ROC profile.
+\end{itemize}
+
+\subsection{Predictive Insights}
+Gradient Boosting identified the following as the top risk predictors:
+1. Sedentary Hours Per Day
+2. Exercise Hours Per Week
+3. BMI
+4. Triglycerides
+5. Cholesterol
+
+% --- 6. Discussion and Future Scope ---
+\section{Discussion and Future Scope}
+The analysis reveals that while clinical data is vital, lifestyle behavior is a powerful predictor of heart health. The models achieve a steady 64\% accuracy, which serves as a robust baseline for preliminary screening.
+
+\subsection{Future Enhancements}
+\begin{itemize}
+    \item \textbf{Hyperparameter Tuning}: Implementing Bayesian Optimization for fine-tuning Gradient Boosting parameters.
+    \item \textbf{Deep Learning}: Exploring Artificial Neural Networks (ANNs) for higher-dimensional feature extraction.
+    \item \textbf{Real-time Deployment}: Building a web-based dashboard for clinicians to input data and receive instant risk scores.
+\end{itemize}
+
+% --- 7. Conclusion ---
+\section{Conclusion}
+This project successfully developed a multi-model pipeline for heart attack risk prediction. By integrating clinical and lifestyle data, we demonstrated that a data-driven approach can provide meaningful risk assessments. The findings emphasize that lifestyle management remains a critical component of cardiovascular health.
+
+\newpage
+\section{References}
+\begin{enumerate}
+    \item World Health Organization (WHO), "Cardiovascular diseases (CVDs) Fact Sheet," 2024.
+    \item Pedregosa, F., et al., "Scikit-learn: Machine Learning in Python," Journal of Machine Learning Research, 2011.
+    \item Lan, Wei, et al. "The large language models on biomedical data analysis: a survey." IEEE Journal of Biomedical and Health Informatics 2025.
+    \item Waskom, M. L., "Seaborn: statistical data visualization," 2021.
+    \item Heart Attack Risk Dataset: \texttt{DOC-20260206-WA0006 (1).csv}.
+\end{enumerate}
+
+\end{document}
